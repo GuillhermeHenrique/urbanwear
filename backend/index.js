@@ -12,13 +12,18 @@ app.use(
   })
 );
 
-// To read cookies
+// read cookies
 app.use(cookieParser());
 
 // config json
 app.use(express.json());
 
 // public folder for images
-app.use(express.static());
+app.use(express.static("public"));
+
+// routes
+import UserRoutes from "./routes/UserRoutes.js";
+
+app.use("/users", UserRoutes);
 
 app.listen(5000);
