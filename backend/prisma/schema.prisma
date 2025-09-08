@@ -6,3 +6,70 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  password String
+  image    String?
+
+  cart Cart?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+enum Category {
+  TSHIRT
+  SHORTS
+  COAT
+  PANTS
+  SNEAKERS
+}
+
+model Product {
+  id        String   @id @default(uuid())
+  name      String
+  category  Category
+  price     Decimal  @db.Decimal(10, 2)
+  images    String[]
+  available Boolean  @default(true)
+
+  cartsItem CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
+}
+
+model Cart {
+  id String @id @default(uuid())
+
+  items CartItem[]
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("carts")
+}
+
+model CartItem {
+  id     String @id @default(uuid())
+  amount Int    @default(1)
+
+  cartId String
+  cart   Cart   @relation(fields: [cartId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([cartId, productId])
+  @@map("cart_items")
+}
