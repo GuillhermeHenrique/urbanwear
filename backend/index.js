@@ -22,8 +22,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // routes
+import AuthRoutes from "./routes/AuthRoutes.js";
 import UserRoutes from "./routes/UserRoutes.js";
 
+app.use("/auth", AuthRoutes);
 app.use("/users", UserRoutes);
 
 app.listen(5000);
