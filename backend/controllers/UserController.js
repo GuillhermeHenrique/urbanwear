@@ -26,4 +26,23 @@ export default class UserController {
       return res.status(401).json({ message: "Invalid token!" });
     }
   }
+
+  static async getUserById(req, res) {
+    try {
+      const id = req.params.id;
+
+      const user = await prisma.user.findFirst({
+        where: { id },
+        include: { cart: true },
+      });
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found!" });
+      }
+
+      res.status(200).json({ user });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
