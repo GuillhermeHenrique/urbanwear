@@ -4,10 +4,6 @@ const createUserToken = async (user, req, res) => {
   try {
     const secret = process.env.JWT_SECRET;
 
-    if (!secret) {
-      return res.status(500).json({ message: "JWT secret is not defined!" });
-    }
-
     const token = jwt.sign(
       {
         name: user.name,

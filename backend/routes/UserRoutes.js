@@ -5,6 +5,6 @@ const router = Router();
 // controller
 import UserController from "../controllers/UserController.js";
 
-router.get("/", UserController.home);
+router.get("/checkuser", UserController.checkUser);
 
 export default router;
