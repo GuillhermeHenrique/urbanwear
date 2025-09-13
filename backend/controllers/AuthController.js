@@ -59,7 +59,7 @@ export default class AuthController {
       });
     }
 
-    const { email, password } = validatedData;
+    const { email, password } = validatedData.data;
 
     const user = await prisma.user.findFirst({ where: { email } });
 
