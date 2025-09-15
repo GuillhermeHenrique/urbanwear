@@ -61,7 +61,7 @@ export default class AuthController {
 
     const { email, password } = validatedData.data;
 
-    const user = await prisma.user.findFirst({ where: { email } });
+    const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
       return res.status(422).json({ message: "User not found!" });
