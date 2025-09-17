@@ -1,10 +1,13 @@
 import jwt from "jsonwebtoken";
 
+// middlewares
+import getToken from "./get-token.js";
+
 // middleware to validate token from HTTP Only cookie
 const checkToken = (req, res, next) => {
   const secret = process.env.JWT_SECRET;
 
-  const token = req.cookies?.token;
+  const token = getToken(req);
 
   if (!token) {
     return res.status(401).json({ message: "Access denied!" });

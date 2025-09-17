@@ -111,6 +111,7 @@ export default class UserController {
           password: user.password,
           image: user.image,
         },
+        include: { cart: true },
       });
 
       res
