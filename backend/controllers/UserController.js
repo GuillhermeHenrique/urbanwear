@@ -7,6 +7,10 @@ import bcrypt from "bcrypt";
 // zod validations
 import { editUserSchema } from "../schemas/UserSchemas.js";
 
+// middlewares
+import getToken from "../helpers/get-token.js";
+import getUserByToken from "../helpers/get-user-by-token.js";
+
 export default class UserController {
   static async checkUser(req, res) {
     const secret = process.env.JWT_SECRET;
@@ -54,10 +58,15 @@ export default class UserController {
   static async editUser(req, res) {
     const id = req.params.id;
 
-    const user = await prisma.user.findUnique({ where: { id } });
+    const token = getToken(req);
+    const user = await getUserByToken(token);
 
     if (!user) {
       return res.status(404).json({ message: "User not found!" });
+    }
+
+    if (user.id != id) {
+      return res.status(401).json({ message: "Access denied!" });
     }
 
     const validatedData = editUserSchema.safeParse(req.body);
