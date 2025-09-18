@@ -58,4 +58,23 @@ export default class ProductController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  static async getProductById(req, res) {
+    const id = req.params.id;
+
+    try {
+      const product = await prisma.product.findUnique({
+        where: { id },
+        include: { cartsItem: true },
+      });
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found!" });
+      }
+
+      res.status(200).json({ product });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
