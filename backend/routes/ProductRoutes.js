@@ -15,5 +15,6 @@ router.post(
   imageUpload.array("images"),
   ProductController.create
 );
+router.get("/", ProductController.getAll);
 
 export default router;

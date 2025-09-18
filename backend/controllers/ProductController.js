@@ -25,8 +25,6 @@ export default class ProductController {
       return res.status(422).json({ message: "Image is required!" });
     }
 
-    console.log(images);
-
     const imagesPath = images.map((image) => image.filename);
 
     try {
@@ -43,6 +41,19 @@ export default class ProductController {
         message: "Successfully created product!",
         product: createdProduct,
       });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async getAll(req, res) {
+    try {
+      const products = await prisma.product.findMany({
+        orderBy: { createdAt: "desc" },
+        include: { cartsItem: true },
+      });
+
+      res.status(200).json({ products });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
