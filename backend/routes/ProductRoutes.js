@@ -17,5 +17,6 @@ router.post(
 );
 router.get("/", ProductController.getAll);
 router.get("/:id", ProductController.getProductById);
+router.delete("/:id", checkToken, ProductController.removeProduct);
 
 export default router;

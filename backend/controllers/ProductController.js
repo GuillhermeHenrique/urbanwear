@@ -77,4 +77,22 @@ export default class ProductController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  static async removeProduct(req, res) {
+    const id = req.params.id;
+
+    try {
+      const product = await prisma.product.findUnique({ where: { id } });
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found!" });
+      }
+
+      await prisma.product.delete({ where: { id } });
+
+      res.status(200).json({ message: "Product removed successfully" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
