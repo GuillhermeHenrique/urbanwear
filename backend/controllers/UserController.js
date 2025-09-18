@@ -55,7 +55,7 @@ export default class UserController {
     }
   }
 
-  static async editUser(req, res) {
+  static async updateUser(req, res) {
     const id = req.params.id;
 
     const token = getToken(req);
