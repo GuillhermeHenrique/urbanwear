@@ -1,0 +1,19 @@
+import { Router } from "express";
+
+const router = Router();
+
+// controller
+import ProductController from "../controllers/ProductController.js";
+
+// middlewares
+import checkToken from "../helpers/check-token.js";
+import imageUpload from "../helpers/image-upload.js";
+
+router.post(
+  "/create",
+  checkToken,
+  imageUpload.array("images"),
+  ProductController.create
+);
+
+export default router;
