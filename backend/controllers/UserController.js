@@ -15,7 +15,7 @@ export default class UserController {
   static async checkUser(req, res) {
     const secret = process.env.JWT_SECRET;
 
-    const token = req.cookies.token;
+    const token = getToken(req);
 
     if (!token) {
       return res.status(401).json({ message: "No token provided!" });
@@ -30,7 +30,7 @@ export default class UserController {
         return res.status(404).json({ message: "User not found!" });
       }
 
-      res.status(200).json({ id: user.id, name: user.name });
+      res.status(200).json({ userId: user.id, name: user.name });
     } catch (error) {
       return res.status(401).json({ message: "Invalid token!" });
     }

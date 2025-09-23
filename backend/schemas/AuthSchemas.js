@@ -14,6 +14,7 @@ export const registerSchema = z
     confirmpassword: z
       .string()
       .nonempty({ message: "Confirm password is required!" }),
+    admin: z.boolean().default(false),
   })
   .refine((data) => data.password === data.confirmpassword, {
     message: "Passwords do not match!",

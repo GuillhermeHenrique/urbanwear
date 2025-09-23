@@ -19,7 +19,7 @@ export default class AuthController {
       });
     }
 
-    const { name, email, password } = validatedData.data;
+    const { name, email, password, admin } = validatedData.data;
 
     // check if user exists
     const userExists = await prisma.user.findUnique({ where: { email } });
@@ -38,6 +38,7 @@ export default class AuthController {
           name,
           email,
           password: passwordHash,
+          admin,
           cart: { create: {} },
         },
         include: { cart: true },
