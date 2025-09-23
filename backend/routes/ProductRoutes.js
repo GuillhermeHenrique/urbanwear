@@ -6,8 +6,8 @@ const router = Router();
 import ProductController from "../controllers/ProductController.js";
 
 // middlewares
-import checkToken from "../helpers/check-token.js";
-import checkUserAdmin from "../helpers/check-user-admin.js";
+import checkToken from "../middlewares/check-token.js";
+import checkUserAdmin from "../middlewares/check-user-admin.js";
 import imageUpload from "../helpers/image-upload.js";
 
 router.post(

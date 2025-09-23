@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 // middlewares
-import getToken from "./get-token.js";
+import getToken from "../helpers/get-token.js";
 
 // middleware to validate token from HTTP Only cookie
 const checkToken = (req, res, next) => {

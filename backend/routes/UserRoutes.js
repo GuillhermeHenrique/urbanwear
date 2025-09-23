@@ -6,7 +6,7 @@ const router = Router();
 import UserController from "../controllers/UserController.js";
 
 // middlewares
-import checkToken from "../helpers/check-token.js";
+import checkToken from "../middlewares/check-token.js";
 import imageUpload from "../helpers/image-upload.js";
 
 router.get("/checkuser", UserController.checkUser);
