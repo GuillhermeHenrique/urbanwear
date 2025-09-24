@@ -95,4 +95,24 @@ export default class ProductController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  static async getProductsByCategory(req, res) {
+    const categoryParam = req.params.productCategory;
+
+    const category = categoryParam.toUpperCase();
+
+    try {
+      const products = await prisma.product.findMany({
+        where: { category },
+      });
+
+      if (!products) {
+        return res.status(404).json({ message: "Category don't exists!" });
+      }
+
+      res.status(200).json({ products });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }

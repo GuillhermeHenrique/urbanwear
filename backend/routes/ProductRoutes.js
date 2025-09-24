@@ -25,5 +25,9 @@ router.delete(
   checkUserAdmin,
   ProductController.removeProduct
 );
+router.get(
+  "/categories/:productCategory",
+  ProductController.getProductsByCategory
+);
 
 export default router;
