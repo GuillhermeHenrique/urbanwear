@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 // zod validations
 import { editUserSchema } from "../schemas/UserSchemas.js";
 
-// middlewares
+// helpers
 import getToken from "../helpers/get-token.js";
 import getUserByToken from "../helpers/get-user-by-token.js";
 

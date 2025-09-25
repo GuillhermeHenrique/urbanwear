@@ -25,9 +25,11 @@ app.use(express.static("public"));
 import AuthRoutes from "./routes/AuthRoutes.js";
 import UserRoutes from "./routes/UserRoutes.js";
 import ProductRoutes from "./routes/ProductRoutes.js";
+import CartRoutes from "./routes/CartRoutes.js";
 
 app.use("/auth", AuthRoutes);
 app.use("/users", UserRoutes);
 app.use("/products", ProductRoutes);
+app.use("/cart", CartRoutes);
 
 app.listen(5000);

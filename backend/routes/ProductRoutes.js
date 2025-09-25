@@ -8,6 +8,8 @@ import ProductController from "../controllers/ProductController.js";
 // middlewares
 import checkToken from "../middlewares/check-token.js";
 import checkUserAdmin from "../middlewares/check-user-admin.js";
+
+// helpers
 import imageUpload from "../helpers/image-upload.js";
 
 router.post(
