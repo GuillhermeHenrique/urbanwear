@@ -9,5 +9,6 @@ import CartController from "../controllers/CartController.js";
 import checkToken from "../middlewares/check-token.js";
 
 router.post("/", checkToken, CartController.create);
+router.get("/", checkToken, CartController.getAll);
 
 export default router;

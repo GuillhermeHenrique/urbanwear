@@ -58,4 +58,24 @@ export default class CartController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  static async getAll(req, res) {
+    const token = getToken(req);
+    const user = await getUserByToken(token);
+
+    try {
+      const cart = await prisma.cart.findUnique({
+        where: { userId: user.id },
+        include: {
+          items: { include: { product: true } },
+        },
+      });
+
+      res
+        .status(200)
+        .json({ products: cart.items.map((item) => item.product) });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
