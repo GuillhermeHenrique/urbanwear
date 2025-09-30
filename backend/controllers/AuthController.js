@@ -7,6 +7,8 @@ import { loginSchema, registerSchema } from "../schemas/authSchemas.js";
 
 // helpers
 import createUserToken from "../helpers/create-user-token.js";
+import getToken from "../helpers/get-token.js";
+import getUserByToken from "../helpers/get-user-by-token.js";
 
 export default class AuthController {
   static async register(req, res) {
@@ -75,5 +77,32 @@ export default class AuthController {
     }
 
     await createUserToken(user, req, res);
+  }
+
+  static async checkUser(req, res) {
+    try {
+      const token = getToken(req);
+      const user = await getUserByToken(token);
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found!" });
+      }
+
+      res
+        .status(200)
+        .json({ user: { id: user.id, name: user.name, email: user.email } });
+    } catch (error) {
+      return res.status(401).json({ message: error.message });
+    }
+  }
+
+  static async logout(req, res) {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    });
+
+    res.status(200).json({ message: "Logged out successfully!" });
   }
 }

@@ -1,5 +1,3 @@
-import jwt from "jsonwebtoken";
-
 import prisma from "../models/prismaClient.js";
 
 import bcrypt from "bcrypt";
@@ -12,30 +10,6 @@ import getToken from "../helpers/get-token.js";
 import getUserByToken from "../helpers/get-user-by-token.js";
 
 export default class UserController {
-  static async checkUser(req, res) {
-    const secret = process.env.JWT_SECRET;
-
-    const token = getToken(req);
-
-    if (!token) {
-      return res.status(401).json({ message: "No token provided!" });
-    }
-
-    try {
-      const decoded = jwt.verify(token, secret);
-
-      const user = await prisma.user.findUnique({ where: { id: decoded.id } });
-
-      if (!user) {
-        return res.status(404).json({ message: "User not found!" });
-      }
-
-      res.status(200).json({ userId: user.id, name: user.name });
-    } catch (error) {
-      return res.status(401).json({ message: "Invalid token!" });
-    }
-  }
-
   static async getUserById(req, res) {
     try {
       const id = req.params.id;

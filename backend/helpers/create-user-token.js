@@ -9,7 +9,8 @@ const createUserToken = async (user, req, res) => {
         name: user.name,
         id: user.id,
       },
-      secret
+      secret,
+      { expiresIn: "7d" }
     );
 
     // send token like cookie HTTP Only
@@ -17,6 +18,7 @@ const createUserToken = async (user, req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
     res
