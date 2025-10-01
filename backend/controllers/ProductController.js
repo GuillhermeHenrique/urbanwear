@@ -104,6 +104,7 @@ export default class ProductController {
     try {
       const products = await prisma.product.findMany({
         where: { category },
+        orderBy: { createdAt: "desc" },
       });
 
       if (!products) {
