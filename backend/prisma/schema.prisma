@@ -15,7 +15,8 @@ model User {
   image    String?
   admin    Boolean @default(false)
 
-  cart Cart?
+  cart      Cart?
+  UserOrder UserOrder[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -53,7 +54,7 @@ model Cart {
   items CartItem[]
 
   userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -65,12 +66,56 @@ model CartItem {
   id     String @id @default(uuid())
   amount Int    @default(1)
 
+  order Order?
+
   cartId String
-  cart   Cart   @relation(fields: [cartId], references: [id])
+  cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
 
   productId String
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([cartId, productId])
   @@map("cart_items")
+}
+
+model UserOrder {
+  id           String  @id @default(uuid())
+  name         String
+  email        String
+  cpf          String
+  phone        String
+  cep          String
+  address      String
+  number       Int
+  complement   String?
+  neighborhood String
+  city         String
+  state        String
+
+  order Order[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_orders")
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  cartItemId String   @unique
+  cartItem   CartItem @relation(fields: [cartItemId], references: [id], onDelete: Cascade)
+
+  userOrderId String
+  userOrder   UserOrder @relation(fields: [userOrderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@map("orders")
 }
