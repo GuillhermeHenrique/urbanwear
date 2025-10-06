@@ -26,10 +26,12 @@ import AuthRoutes from "./routes/AuthRoutes.js";
 import UserRoutes from "./routes/UserRoutes.js";
 import ProductRoutes from "./routes/ProductRoutes.js";
 import CartRoutes from "./routes/CartRoutes.js";
+import OrderRoutes from "./routes/OrderRoutes.js";
 
 app.use("/auth", AuthRoutes);
 app.use("/users", UserRoutes);
 app.use("/products", ProductRoutes);
 app.use("/cart", CartRoutes);
+app.use("/orders", OrderRoutes);
 
 app.listen(5000);

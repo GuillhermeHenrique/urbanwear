@@ -10,5 +10,6 @@ import checkToken from "../middlewares/check-token.js";
 
 router.post("/", checkToken, CartController.create);
 router.get("/", checkToken, CartController.getAll);
+router.get("/:cartItemId", checkToken, CartController.getCartItemById);
 
 export default router;

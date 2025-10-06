@@ -78,4 +78,34 @@ export default class CartController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  static async getCartItemById(req, res) {
+    const cartItemId = req.params.cartItemId;
+
+    try {
+      const token = getToken(req);
+      const user = await getUserByToken(token);
+
+      if (!user) {
+        return res.status(401).json({ message: "Access denied!" });
+      }
+
+      const cartItem = await prisma.cartItem.findUnique({
+        where: { id: cartItemId },
+        include: { cart: true },
+      });
+
+      if (!cartItem || !cartItem.cart) {
+        return res.status(404).json({ message: "Cart item not found!" });
+      }
+
+      if (user.id !== cartItem.cart.userId) {
+        return res.status(401).json({ message: "Access denied!" });
+      }
+
+      res.status(200).json({ cartItem });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
