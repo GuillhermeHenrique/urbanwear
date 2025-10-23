@@ -46,5 +46,10 @@
   font-size: 25px;
   color: #f8f8f8;
   align-items: center;
+  cursor: pointer;
+  transition: 0.1s;
 }
 
+.icons_link a:hover {
+  color: #fff;
+}

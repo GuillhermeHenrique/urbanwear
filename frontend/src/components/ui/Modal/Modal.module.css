@@ -1,0 +1,26 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #00000080;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.modal_container {
+  position: relative;
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  width: 500px;
+  box-shadow: 0 4px 20px #0000001a;
+}
+
+.close_btn {
+  position: absolute;
+  right: 1.5em;
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 1;
+}
