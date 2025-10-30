@@ -1,12 +1,14 @@
-// hooks
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-// css
+import { ApiContext } from "../../context/ApiContext";
+
 import classes from "./AuthModal.module.css";
 
 // components
 import Modal from "../ui/Modal/Modal";
 import Input from "../ui/Input/Input";
+
+import type { UserLogin, UserRegister } from "../../types/User";
 
 type AuthModalProps = {
   isOpen: boolean;
@@ -15,8 +17,49 @@ type AuthModalProps = {
 
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const { register, login } = useContext(ApiContext);
+  const [userRegister, setUserRegister] = useState<UserRegister>({
+    name: "",
+    email: "",
+    password: "",
+    confirmpassword: "",
+  });
+  const [userLogin, setUserLogin] = useState<UserLogin>({
+    email: "",
+    password: "",
+  });
 
-  const handleChange = () => {};
+  const handleChangeLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
+  };
+
+  const handleChangeRegister = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserRegister({ ...userRegister, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(userRegister);
+
+    register(userRegister);
+
+    setTimeout(() => {
+      onClose();
+    }, 2000);
+  };
+
+  const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(userLogin);
+
+    login(userLogin);
+
+    setTimeout(() => {
+      onClose();
+    }, 2000);
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -24,22 +67,22 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         <div className={classes.form_container}>
           <div className={classes.title}>
             <h2>Login</h2>
-            <p>Welcome back! Enter your data.</p>
+            <p>Welcome back! Please, enter your details.</p>
           </div>
-          <form>
+          <form onSubmit={handleSubmitLogin}>
             <Input
               name="email"
               text="E-mail"
-              type="text"
+              type="email"
               placeholder="Enter your e-mail"
-              handleOnChange={handleChange}
+              handleOnChange={handleChangeLogin}
             />
             <Input
               name="password"
               text="Password"
               type="password"
               placeholder="Enter yout password"
-              handleOnChange={handleChange}
+              handleOnChange={handleChangeLogin}
             />
             <input type="submit" value="Login" />
           </form>
@@ -52,36 +95,36 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         <div className={classes.form_container}>
           <div className={classes.title}>
             <h2>Register</h2>
-            <p>Welcome! Enter your data.</p>
+            <p>Welcome! Please, enter your details.</p>
           </div>
-          <form>
+          <form onSubmit={handleSubmitRegister}>
             <Input
               name="name"
               text="Name"
               type="text"
               placeholder="Enter your name"
-              handleOnChange={handleChange}
+              handleOnChange={handleChangeRegister}
             />
             <Input
               name="email"
               text="E-mail"
-              type="text"
+              type="email"
               placeholder="Enter your e-mail"
-              handleOnChange={handleChange}
+              handleOnChange={handleChangeRegister}
             />
             <Input
               name="password"
               text="Password"
               type="password"
               placeholder="Enter your password"
-              handleOnChange={handleChange}
+              handleOnChange={handleChangeRegister}
             />
             <Input
               name="confirmpassword"
               text="Confirm password"
               type="password"
               placeholder="Confirm your password"
-              handleOnChange={handleChange}
+              handleOnChange={handleChangeRegister}
             />
             <input type="submit" value="Register" />
           </form>

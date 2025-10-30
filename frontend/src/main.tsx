@@ -5,6 +5,8 @@ import App from "./App.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import { ApiProvider } from "./context/ApiContext.tsx";
+
 // routes
 import Home from "./routes/Home.tsx";
 
@@ -22,6 +24,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <ApiProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </ApiProvider>
   </StrictMode>
 );

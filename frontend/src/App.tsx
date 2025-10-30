@@ -1,8 +1,8 @@
-// css
 import classes from "./App.module.css";
 
-// router
 import { Outlet } from "react-router-dom";
+
+import { ToastContainer } from "react-toastify";
 
 // components
 import Navbar from "./components/layout/Navbar/Navbar";
@@ -12,6 +12,7 @@ function App() {
   return (
     <div className={classes.container}>
       <Navbar />
+      <ToastContainer position="bottom-right" theme="dark" />
       <Outlet />
       <Footer />
     </div>
