@@ -9,6 +9,7 @@ import { ApiProvider } from "./context/ApiContext.tsx";
 
 // routes
 import Home from "./routes/Home.tsx";
+import CategoryProducts from "./routes/Product/CategoryProducts.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/products/:categoryName",
+        element: <CategoryProducts />,
       },
     ],
   },
