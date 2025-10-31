@@ -28,7 +28,7 @@ router.delete(
   ProductController.removeProduct
 );
 router.get(
-  "/categories/:productCategory",
+  "/categories/:categoryName",
   ProductController.getProductsByCategory
 );
 

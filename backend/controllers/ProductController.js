@@ -97,7 +97,7 @@ export default class ProductController {
   }
 
   static async getProductsByCategory(req, res) {
-    const categoryParam = req.params.productCategory;
+    const categoryParam = req.params.categoryName;
 
     const category = categoryParam.toUpperCase();
 
