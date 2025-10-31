@@ -1,6 +1,6 @@
 #navbar {
   width: 100%;
-  padding: 15px 45px;
+  padding: 24px 45px;
   background-color: #171717;
   box-shadow: 0 0 16px #7e7e7e;
   display: flex;
@@ -8,13 +8,13 @@
   align-items: center;
 }
 
-.icon {
-  align-items: center;
-}
-
 .icon a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: 45px;
   color: #fff;
+  cursor: pointer;
 }
 
 .links {
@@ -43,6 +43,9 @@
 }
 
 .icons_link a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: 25px;
   color: #f8f8f8;
   align-items: center;

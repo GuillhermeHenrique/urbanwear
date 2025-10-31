@@ -66,7 +66,7 @@ const Footer = () => {
       </footer>
       <div className={classes.rights_container}>
         <div className={classes.rights}>
-          &copy;
+          <span>&copy;</span>
           <p>
             {new Date().getFullYear()} Guilherme Henrique. All rights reserved.
           </p>
