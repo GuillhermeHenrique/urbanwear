@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
+import classes from "./CategoryProducts.module.css";
+
 import { toast } from "react-toastify";
 
 import api from "../../utils/api";
@@ -13,6 +15,10 @@ import type { Product } from "../../types/Product";
 const CategoryProducts = () => {
   const { categoryName } = useParams();
   const [products, setProducts] = useState<Product[]>([]);
+
+  const category =
+    (categoryName?.charAt(0).toUpperCase() ?? "") +
+    (categoryName?.slice(1) ?? "");
 
   const getProductsByCategory = async () => {
     try {
@@ -34,15 +40,37 @@ const CategoryProducts = () => {
   }, [categoryName]);
 
   return (
-    <>
-      <h1>
-        {products.map((product) => (
-          <div className="container">
-            <h2>{product.name}</h2>
-          </div>
-        ))}
-      </h1>
-    </>
+    <div className={classes.container}>
+      <div className={classes.category}>
+        <h2>{category}</h2>
+      </div>
+      {products.length > 0 ? (
+        <div className={classes.products}>
+          {products.map((product) => (
+            <div key={product.id} className={classes.product}>
+              <div className={classes.image}>
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/images/products/${
+                    product.images[1]
+                  }`}
+                  alt={product.name}
+                />
+              </div>
+              <p>{product.name}</p>
+              <div className={classes.availability}>
+                {product.available ? <p>Available</p> : <p>Unavailable</p>}
+              </div>
+              <div className={classes.price}>
+                <span>R$</span>
+                <p>{product.price}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>There are no products in this category!</p>
+      )}
+    </div>
   );
 };
 

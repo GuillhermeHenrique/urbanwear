@@ -13,7 +13,9 @@ function App() {
     <div className={classes.container}>
       <Navbar />
       <ToastContainer position="bottom-right" theme="dark" />
-      <Outlet />
+      <div className={classes.outlet}>
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

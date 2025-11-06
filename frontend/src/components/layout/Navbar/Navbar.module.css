@@ -2,10 +2,11 @@
   width: 100%;
   padding: 24px 45px;
   background-color: #171717;
-  box-shadow: 0 0 16px #7e7e7e;
+  box-shadow: 0 0 16px #3a3a3ad0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
 }
 
 .icon a {

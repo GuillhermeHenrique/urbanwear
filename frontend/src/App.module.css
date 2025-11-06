@@ -1,3 +1,8 @@
 .container {
   height: 100vh;
 }
+
+.outlet {
+  padding-top: 93px;
+  min-height: 50vh;
+}
